@@ -1,6 +1,6 @@
 ## Question answer
 
-## What is the purpose of creating a model with an interface and schema in mongoDB?How dose it help in defining the structure of a collection
+## 1.What is the purpose of creating a model with an interface and schema in mongoDB?How dose it help in defining the structure of a collection
 creating a model with an interface and schema MongoDB serves several purpose. Here are some of key resone. <br />
 1.A schema define the structure of the data sotred in a MongoDB collection. By creating a schema you can enforce  <b>data validation<b>  rules.
 
