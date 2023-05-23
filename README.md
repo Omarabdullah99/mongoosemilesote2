@@ -38,17 +38,17 @@ const userSchema = new Schema<IUser>({
   age: Number
 });
 
-// Custom instance method
+// Custom instance method <br />
 userSchema.methods.getGreeting = function() {
   return `Hello, my name is ${this.name} and I'm ${this.age} years old.`;
 };
 
 const User = model<IUser>('User', userSchema);
 
-// Creating a document/instance
+// Creating a document/instance <br />
 const user = new User({ name: 'John', age: 25 });
 
-// Invoking the custom instance method
+// Invoking the custom instance method <br />
 console.log(user.getGreeting()); // Output: Hello, my name is John and I'm 25 years old.
 
 The <b>getGreeting <b> method is defined as a custom instance method on the <b>userSchema <b> It is accessible on individual document instances created from the User model
