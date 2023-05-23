@@ -1,61 +1,59 @@
 ## Question answer
 
 ## 1.What is the purpose of creating a model with an interface and schema in mongoDB?How dose it help in defining the structure of a collection
-creating a model with an interface and schema MongoDB serves several purpose. Here are some of key resone. <br />
-1.A schema define the structure of the data sotred in a MongoDB collection. By creating a schema you can enforce  <b>data validation<b>  rules.
+creating a model with an interface and schema MongoDB serves several purpose. Here are some of key resone. <br /><br />
+1.Interface schema define the structure of the data sotred in a MongoDB collection. By creating a schema you can enforce  <b>data validation<b>  rules. <br />
+2.Defind Interface and Schema makes it easier for developer to understand the data model and interact withe the databasee <br />
+3. It provides a clear difinition of the fields, therir type and constraints, making code more readable and maintainable <br />
+4. MongoDB can utilize the schema informaiton to optimize query execution
+
+Overall creating a model with an interface and schema in MongoDB helps define the sturecture of a collection by data validation, imporving code readability, maintainability and Query optimize
+
+
+## 2.Explain the concept of field filtering in MongoDB. How can you specify fields to include or exclude in the returned documents
+In mongoDB, fields filtering allows you to spcify which fields to include or exclude int the return documents when querying a collection. <br/> <br/>
+
+To include specific fields in the returned documents, I can use the projection parameter with <b> find() , findeOne() or findeAndModify() ,<b> <br/>
+Example:
+
+db.inventory.find( { status: "A" }, {  status: 1 } )
 
 
 
+## 3.What are instance methods in MongoDB models? Povide an example of custo instance method and explain it s purpose
+ 
+ In MongoDB models, instance methods are custom methods that can be defined on individual documents or instances of a model. These methods specific to each document and can be invoked on an instance of the model. <br /> <br />
 
+ Here is example of instance method in a MongoDB model
+import { Schema, model, Document } from 'mongoose';
 
-## Can you give an example of how to use generics in TypeScript?
-Typescript Generics is a tool which provides a way to create reusable components. It creates a component than can work with a variety of data types rather than a single data type.
-Example of Object using Generic
-
-interface CrushInterface<T>{
-    name:string;
-    husband:T
+interface IUser extends Document {
+  name: string;
+  age: number;
+  getGreeting(): string;
 }
 
-const crush1:CrushInterface<boolean>={
-    name:"msOmaar1",
-    husband:true
-}
+const userSchema = new Schema<IUser>({
+  name: String,
+  age: Number
+});
 
-const crush2:CrushInterface<string>={
-    name:"msOmaar2",
-    husband:"Omar Abdullah"
-}
+// Custom instance method
+userSchema.methods.getGreeting = function() {
+  return `Hello, my name is ${this.name} and I'm ${this.age} years old.`;
+};
 
-const crush3:CrushInterface<{name:string; salary:number}>={
-    name:"msOmar3",
-    husband:{
-        name:"omar Abdullah",
-        salary:20000
-    }
-}
+const User = model<IUser>('User', userSchema);
 
+// Creating a document/instance
+const user = new User({ name: 'John', age: 25 });
 
+// Invoking the custom instance method
+console.log(user.getGreeting()); // Output: Hello, my name is John and I'm 25 years old.
 
+The <b>getGreeting <b> method is defined as a custom instance method on the <b>userSchema <b> It is accessible on individual document instances created from the User model
 
-## Can you give an example of how to use enums in TypeScript?
- Enums: Enums are one of the few features TypeScript has which is not a type-level extension of javaScript. Enums allow a developer to define a set of named constants.
-
- Example of Enums in TypeScript
-//enum object e property object number set
-enum Friends{
-    Omar=7,
-    Abdullah=9,
-    Omar_Abdullah=23
-}
-
-console.log(Friends[23])
-output: Omar_Abdullah
-
-console.log(Friends.Omar)
-output:7
-
-
+The <b>getGreeting<b> method retrieves the name and age fields from the dcument instance using <b> this.name and this.age <b> and reutrns a formatted greeting string.
 
 ## What is the "as" keyword used for in TypeScript?
  as keyword used for Type Assertin. Type assertion is a TypeScript technique that tells the compiler the variable type
